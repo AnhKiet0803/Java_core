@@ -28,5 +28,8 @@ public class Main {
         Tamgiac tg = new Tamgiac(3,4,5);
         System.out.println("Chu vi:"+tg.chuvi());
         System.out.println("Diện tích:"+tg.dientich());
+
+        tg.a = 10;
+        tg.name = "tam giác cân";
     }
 }

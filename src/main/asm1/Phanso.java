@@ -3,16 +3,29 @@ package main.asm1;
 import java.util.Scanner;
 
 public class Phanso {
-    Integer tu; // a là tử số
-    Integer mau; // b là mẫu số
+    private Integer tu;
+    private Integer mau;
 
     public Phanso(){
-        tu = 0;
-        mau =1;
+
     }
     public Phanso(Integer tu, Integer mau){
         this.tu = tu;
         this.mau = mau;
+    }
+
+    // setter và getter
+    public Integer gettu(){
+        return tu;
+    }
+    public void settu(Integer tu){
+        this.tu = tu;
+    }
+    public Integer getmau(){
+        return mau;
+    }
+    public void setmau(Integer mau){
+        this.mau = mau!=0?mau:1;
     }
 
     // nhập 2 số từ bàn phím
@@ -24,79 +37,53 @@ public class Phanso {
         mau = sc.nextInt();
     }
 
-    // setter và getter
-    public Integer getA(){
-        return tu;
-    }
-    public void setA(Integer a){
-        this.tu = a;
-    }
-    public Integer getB(){
-        return mau;
-    }
-    public void setB(Integer b){
-        this.mau = b;
-    }
-
     // In phân số
     public void inphanso(){
-        System.out.println(tu+"/"+mau);
+        System.out.println(gettu()+"/"+getmau());
     }
     // Rút gọn phân số
-    public Integer UCLN(Integer a, Integer b){
-        while (b!=0){
-            Integer r = a % b;
-            a = b;
-            b = r;
-        }
-        return a;
-    }
     public void rutgon(){
-        Integer u = UCLN(tu,mau);
-        tu = tu / u;
-        mau = mau / u;
+        int ucln =1;
+        for (int i=2;i<Math.abs(gettu());i++){
+            if (gettu()%i==0 && getmau()%i==0){
+                ucln =1;
+            }
+        }
+        settu(gettu()/ucln);
+        setmau(getmau()/ucln);
     }
 
     // Nghịch đảo phân số
-    // Nghịch đảo phân số f
     public void nghichdao(Phanso f) {
         tu = f.mau;
         mau = f.tu;
     }
 
     // Cộng 2 phân số
-    public Phanso add(Phanso f){
-        Phanso kq = new Phanso();
-        kq.tu = this.tu * f.mau + f.tu * this.mau;
-        kq.mau = this.mau * f.mau;
-        kq.rutgon();
-        return kq;
+    public void add(Phanso f){
+        setmau(this.mau * f.getmau());
+        settu(this.tu*f.getmau() + this.mau*f.gettu());
+        rutgon();
     }
 
     // Trừ 2 phân số
-    public Phanso sub(Phanso f){
-        Phanso kq = new Phanso();
-        kq.tu = this.tu * f.mau - f.tu * this.mau;
-        kq.mau = this.mau * f.mau;
-        kq.rutgon();
-        return kq;
+    public void sub(Phanso f){
+        setmau(this.mau * f.getmau());
+        settu(this.tu*f.getmau() - this.mau*f.gettu());
+        rutgon();
     }
 
     // Nhân 2 phân số
-    public Phanso mul(Phanso f){
-        Phanso kq = new Phanso();
-        kq.tu = this.tu * f.tu;
-        kq.mau = this.mau * f.mau;
-        kq.rutgon();
-        return kq;
+    public void mul(Phanso f){
+        settu(this.tu * f.gettu());
+        setmau(this.mau * f.getmau());
+        rutgon();
     }
 
-    // Nhân 2 phân số
-    public Phanso div(Phanso f){
-        Phanso kq = new Phanso();
-        kq.tu = this.tu * f.mau;
-        kq.mau = this.mau * f.tu;
-        kq.rutgon();
-        return kq;
+    // Chia 2 phân số
+    public void div(Phanso f){
+        settu(this.tu * f.getmau());
+        setmau(this.mau * f.gettu());
+        rutgon();
     }
 }
