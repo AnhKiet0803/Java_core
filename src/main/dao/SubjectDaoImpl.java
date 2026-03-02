@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class SubjectDaoImpl implements SubjectDao{
+public class SubjectDaoImpl implements BaseDao<Subject,Integer>{
     private Database db;
 
     public SubjectDaoImpl (){this.db = Database.getInstance();}
@@ -66,5 +66,15 @@ public class SubjectDaoImpl implements SubjectDao{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return false;
+    }
+
+    @Override
+    public Subject findById(Integer id) {
+        return null;
     }
 }
